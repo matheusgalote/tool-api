@@ -16,4 +16,18 @@ describe('Tool Controller', () => {
     expect(error.body).toEqual(body)
     expect(error.statusCode).toBe(statusCode)
   })
+
+  test('Should return error if validation code is not provided', async () => {
+    const sut = new ToolController()
+    const httpRequest: HttpRequest = {
+      body: {
+        name: 'any_name',
+        description: 'any_description'
+      }
+    }
+    const error = await sut.handle(httpRequest)
+    const { body, statusCode } = missingParamError('code')
+    expect(error.body).toEqual(body)
+    expect(error.statusCode).toBe(statusCode)
+  })
 })
