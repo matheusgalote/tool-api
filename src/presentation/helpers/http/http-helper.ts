@@ -7,3 +7,10 @@ export function missingParamError (param: any): HttpResponse {
     body: new MissingParamError(param)
   }
 }
+
+export function ok (data: any): HttpResponse {
+  return {
+    statusCode: 201,
+    body: data
+  }
+}

@@ -1,4 +1,4 @@
-import { missingParamError } from '../helpers/http/http-helper'
+import { missingParamError, ok } from '../helpers/http/http-helper'
 import type { Controller } from '../protocols/contoller'
 import type { HttpRequest, HttpResponse } from '../protocols/http'
 
@@ -10,6 +10,6 @@ export class ToolController implements Controller {
         return missingParamError(requiredField)
       }
     }
-    return null
+    return ok(httpRequest)
   }
 }
