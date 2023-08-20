@@ -1,6 +1,6 @@
-import { ToolController } from './tool'
-import type { HttpRequest } from '../protocols/http'
-import { missingParamError, ok } from '../helpers/http/http-helper'
+import { AddToolController } from './add-tool'
+import type { HttpRequest } from '../../protocols/http'
+import { missingParamError, ok } from '../../helpers/http/http-helper'
 
 function makeFakeHttpRequest (): HttpRequest {
   return {
@@ -12,9 +12,9 @@ function makeFakeHttpRequest (): HttpRequest {
   }
 }
 
-describe('Tool Controller', () => {
+describe('AddTool Controller', () => {
   test('Should return error if validation name is not provided', async () => {
-    const sut = new ToolController()
+    const sut = new AddToolController()
     const httpRequest: HttpRequest = {
       body: {
         code: 'any_code',
@@ -28,7 +28,7 @@ describe('Tool Controller', () => {
   })
 
   test('Should return error if validation code is not provided', async () => {
-    const sut = new ToolController()
+    const sut = new AddToolController()
     const httpRequest: HttpRequest = {
       body: {
         name: 'any_name',
@@ -42,7 +42,7 @@ describe('Tool Controller', () => {
   })
 
   test('Should return ok if all data is provided', async () => {
-    const sut = new ToolController()
+    const sut = new AddToolController()
     const success = await sut.handle(makeFakeHttpRequest())
     expect(success).toEqual(ok(makeFakeHttpRequest()))
   })
