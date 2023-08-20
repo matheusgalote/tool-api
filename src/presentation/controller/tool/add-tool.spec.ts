@@ -22,9 +22,7 @@ describe('AddTool Controller', () => {
       }
     }
     const error = await sut.handle(httpRequest)
-    const { body, statusCode } = missingParamError('name')
-    expect(error.body).toEqual(body)
-    expect(error.statusCode).toBe(statusCode)
+    expect(error).toEqual(missingParamError('name'))
   })
 
   test('Should return error if validation code is not provided', async () => {
@@ -36,9 +34,7 @@ describe('AddTool Controller', () => {
       }
     }
     const error = await sut.handle(httpRequest)
-    const { body, statusCode } = missingParamError('code')
-    expect(error.body).toEqual(body)
-    expect(error.statusCode).toBe(statusCode)
+    expect(error).toEqual(missingParamError('code'))
   })
 
   test('Should return ok if all data is provided', async () => {
