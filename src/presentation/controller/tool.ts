@@ -7,6 +7,9 @@ export class ToolController implements Controller {
     if (!httpRequest.body.name) {
       return missingParamError('name')
     }
+    if (!httpRequest.body.code) {
+      return missingParamError('code')
+    }
     return null
   }
 }
