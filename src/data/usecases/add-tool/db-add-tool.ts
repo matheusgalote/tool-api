@@ -1,6 +1,6 @@
 import type { ToolModel } from '../../../domain/models/tool'
 import type { AddTool, AddToolModel } from '../../../domain/usecases/add-tool'
-import type { AddToolRepository } from '../../protocols/add-tool-repository'
+import type { AddToolRepository } from '../../protocols/db/add-tool-repository'
 
 export class DbAddTool implements AddTool {
   private readonly addToolRepository: AddToolRepository

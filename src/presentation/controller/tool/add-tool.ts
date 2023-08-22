@@ -28,7 +28,7 @@ export class AddToolController implements Controller {
 
       return ok(httpRequest)
     } catch (error) {
-      serverError(error)
+      return serverError(error)
     }
   }
 }

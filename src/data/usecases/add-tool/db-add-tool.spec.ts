@@ -1,7 +1,7 @@
 import { DbAddTool } from './db-add-tool'
 import type { ToolModel } from '../../../domain/models/tool'
 import type { AddToolModel } from '../../../domain/usecases/add-tool'
-import type { AddToolRepository } from '../../protocols/add-tool-repository'
+import type { AddToolRepository } from '../../protocols/db/add-tool-repository'
 
 const makeFakeTool = (): ToolModel => ({
   id: 'valid_id',

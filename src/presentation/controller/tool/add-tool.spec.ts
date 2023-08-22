@@ -1,8 +1,9 @@
 import { AddToolController } from './add-tool'
-import { missingParamError, ok } from '../../helpers/http/http-helper'
+import { missingParamError, ok, serverError } from '../../helpers/http/http-helper'
 import type { HttpRequest } from '../../protocols/http'
 import type { AddToolModel, AddTool } from '../../../domain/usecases/add-tool'
 import type { ToolModel } from '../../../domain/models/tool'
+import { ServerError } from '../../errors/server-error'
 
 const makeFakeHttpRequest = (): HttpRequest => {
   return {
@@ -86,5 +87,16 @@ describe('AddTool Controller', () => {
       code: 'any_code',
       description: 'any_description'
     })
+  })
+
+  test('Should be return a serverError if AddTool throws', async () => {
+    const { sut, addToolStub } = makeSut()
+    jest
+      .spyOn(addToolStub, 'add')
+      .mockImplementationOnce(async () => {
+        return await new Promise((resolve, reject) => reject(new Error()))
+      })
+    const error = await sut.handle(makeFakeHttpRequest())
+    expect(error).toEqual(serverError(new ServerError(null)))
   })
 })
