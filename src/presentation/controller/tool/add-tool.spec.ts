@@ -1,8 +1,10 @@
 import { AddToolController } from './add-tool'
-import type { HttpRequest } from '../../protocols/http'
 import { missingParamError, ok } from '../../helpers/http/http-helper'
+import type { HttpRequest } from '../../protocols/http'
+import type { AddToolModel, AddTool } from '../../../domain/usecases/add-tool'
+import type { ToolModel } from '../../../domain/models/tool'
 
-function makeFakeHttpRequest (): HttpRequest {
+const makeFakeHttpRequest = (): HttpRequest => {
   return {
     body: {
       name: 'any_name',
@@ -12,9 +14,41 @@ function makeFakeHttpRequest (): HttpRequest {
   }
 }
 
+const makeFakeTool = (): ToolModel => ({
+  id: 'valid_id',
+  name: 'valid_name',
+  code: 'valid_code',
+  description: 'valid_description'
+})
+
+const makeAddToolStub = (): AddTool => {
+  class AddToolStub implements AddTool {
+    async add (tool: AddToolModel): Promise<ToolModel> {
+      return await new Promise(resolve => resolve(makeFakeTool()))
+    }
+  }
+
+  return new AddToolStub()
+}
+
+interface ISut {
+  sut: AddToolController
+  addToolStub: AddTool
+}
+
+const makeSut = (): ISut => {
+  const addToolStub = makeAddToolStub()
+  const sut = new AddToolController(addToolStub)
+
+  return {
+    sut,
+    addToolStub
+  }
+}
+
 describe('AddTool Controller', () => {
   test('Should return error if validation name is not provided', async () => {
-    const sut = new AddToolController()
+    const { sut } = makeSut()
     const httpRequest: HttpRequest = {
       body: {
         code: 'any_code',
@@ -26,7 +60,7 @@ describe('AddTool Controller', () => {
   })
 
   test('Should return error if validation code is not provided', async () => {
-    const sut = new AddToolController()
+    const { sut } = makeSut()
     const httpRequest: HttpRequest = {
       body: {
         name: 'any_name',
@@ -38,8 +72,19 @@ describe('AddTool Controller', () => {
   })
 
   test('Should return ok if all data is provided', async () => {
-    const sut = new AddToolController()
+    const { sut } = makeSut()
     const success = await sut.handle(makeFakeHttpRequest())
     expect(success).toEqual(ok(makeFakeHttpRequest()))
+  })
+
+  test('Should be call AddTool with correct values', async () => {
+    const { sut, addToolStub } = makeSut()
+    const addSpy = jest.spyOn(addToolStub, 'add')
+    await sut.handle(makeFakeHttpRequest())
+    expect(addSpy).toHaveBeenCalledWith({
+      name: 'any_name',
+      code: 'any_code',
+      description: 'any_description'
+    })
   })
 })
