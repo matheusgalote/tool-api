@@ -1,9 +1,11 @@
 import { AddToolController } from './add-tool'
-import { missingParamError, ok, serverError } from '../../helpers/http/http-helper'
+import { ok, serverError } from '../../helpers/http/http-helper'
+import { ServerError } from '../../errors/server-error'
+import { YupFieldValidation } from '../../helpers/validators/yup-field-validation'
+import { addToolValidation } from '../../helpers/validation-fields/add-tool'
 import type { HttpRequest } from '../../protocols/http'
 import type { AddToolModel, AddTool } from '../../../domain/usecases/add-tool'
 import type { ToolModel } from '../../../domain/models/tool'
-import { ServerError } from '../../errors/server-error'
 
 const makeFakeHttpRequest = (): HttpRequest => {
   return {
@@ -39,7 +41,8 @@ interface ISut {
 
 const makeSut = (): ISut => {
   const addToolStub = makeAddToolStub()
-  const sut = new AddToolController(addToolStub)
+  const fieldValidation = new YupFieldValidation(addToolValidation)
+  const sut = new AddToolController(addToolStub, fieldValidation)
 
   return {
     sut,
@@ -48,30 +51,6 @@ const makeSut = (): ISut => {
 }
 
 describe('AddTool Controller', () => {
-  test('Should return error if validation name is not provided', async () => {
-    const { sut } = makeSut()
-    const httpRequest: HttpRequest = {
-      body: {
-        code: 'any_code',
-        description: 'any_description'
-      }
-    }
-    const error = await sut.handle(httpRequest)
-    expect(error).toEqual(missingParamError('name'))
-  })
-
-  test('Should return error if validation code is not provided', async () => {
-    const { sut } = makeSut()
-    const httpRequest: HttpRequest = {
-      body: {
-        name: 'any_name',
-        description: 'any_description'
-      }
-    }
-    const error = await sut.handle(httpRequest)
-    expect(error).toEqual(missingParamError('code'))
-  })
-
   test('Should return ok if all data is provided', async () => {
     const { sut } = makeSut()
     const success = await sut.handle(makeFakeHttpRequest())
