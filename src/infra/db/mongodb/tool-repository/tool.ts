@@ -1,8 +1,9 @@
+import { MongoHelper } from '../helpers/mongo-helper'
+import { getMap } from './get-tool-mapper'
+import { map } from './tool-mapper'
 import type { AddToolRepository } from '../../../../data/protocols/db/add-tool-repository'
 import type { ToolModel } from '../../../../domain/models/tool'
 import type { AddToolModel } from '../../../../domain/usecases/add-tool'
-import { MongoHelper } from '../helpers/mongo-helper'
-import { map } from './account-mapper'
 
 export class ToolMongoRepository implements AddToolRepository {
   async add (toolData: AddToolModel): Promise<ToolModel> {
@@ -10,5 +11,18 @@ export class ToolMongoRepository implements AddToolRepository {
     const result = await toolCollection.insertOne(toolData)
     const tool = await map(toolCollection, result)
     return tool
+  }
+
+  async getToolByCode (code: string): Promise<ToolModel> {
+    const toolCollection = await MongoHelper.getCollection('tools')
+    const result = await toolCollection.findOne({ code })
+    const tool = await getMap(result)
+    return tool
+  }
+
+  async toolCodeAlreadyExists (code: string): Promise<boolean> {
+    const toolCollection = await MongoHelper.getCollection('tools')
+    const result = await toolCollection.findOne({ code })
+    return !!result
   }
 }
