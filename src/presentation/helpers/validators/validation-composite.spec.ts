@@ -35,24 +35,24 @@ const makeFakeRequest = (): HttpRequest => ({
 })
 
 describe('Validation Composite', () => {
-  test('Should return an error if any validation fails', () => {
+  test('Should return an error if any validation fails', async () => {
     const { sut, validationStubs } = makeSut()
     jest.spyOn(validationStubs[0], 'validate').mockReturnValueOnce(new ValidationParamError('field'))
-    const error = sut.validate(makeFakeRequest())
+    const error = await sut.validate(makeFakeRequest())
     expect(error).toEqual(new ValidationParamError('field'))
   })
 
-  test('Should return the first error if more then one validation fails', () => {
+  test('Should return the first error if more then one validation fails', async () => {
     const { sut, validationStubs } = makeSut()
     jest.spyOn(validationStubs[0], 'validate').mockReturnValueOnce(new Error())
     jest.spyOn(validationStubs[1], 'validate').mockReturnValueOnce(new ValidationParamError('field'))
-    const error = sut.validate(makeFakeRequest())
+    const error = await sut.validate(makeFakeRequest())
     expect(error).toEqual(new Error())
   })
 
-  test('Should return anything if validation succeed', () => {
+  test('Should return anything if validation succeed', async () => {
     const { sut } = makeSut()
-    const error = sut.validate(makeFakeRequest())
+    const error = await sut.validate(makeFakeRequest().body)
     expect(error).toBeFalsy()
   })
 })
