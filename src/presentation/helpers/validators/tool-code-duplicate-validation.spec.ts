@@ -1,12 +1,11 @@
-import { type ToolCodeAlreadyExistsRepository } from '../../../data/protocols/db/tool-code-already-exists-repository'
-import { type AddToolModel } from '../../../domain/usecases/add-tool'
 import { ValidationParamError } from '../../errors/validation-param-error'
-import { type HttpRequest } from '../../protocols/http'
 import ToolCodeDuplicateValidation from './tool-code-duplicate-validation'
+import type { ToolCodeAlreadyExistsRepository } from '../../../data/protocols/db/tool-code-already-exists-repository'
+import type { HttpRequest } from '../../protocols/http'
 
 const makeToolCodeAlreadyExistsRepository = (): ToolCodeAlreadyExistsRepository => {
   class ToolCodeAlreadyExistsRepositoryStub implements ToolCodeAlreadyExistsRepository {
-    async toolCodeAlreadyExists (tool: AddToolModel): Promise<boolean> {
+    async toolCodeAlreadyExists (code: string): Promise<boolean> {
       return true
     }
   }
