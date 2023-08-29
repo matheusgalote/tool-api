@@ -4,7 +4,7 @@ import { map } from './tool-mapper'
 import type { AddToolRepository } from '../../../../data/protocols/db/add-tool-repository'
 import type { ToolModel } from '../../../../domain/models/tool'
 import type { AddToolModel } from '../../../../domain/usecases/add-tool'
-import { type ToolCodeAlreadyExistsRepository } from '../../../../data/protocols/db/tool-code-already-exists-repository'
+import type { ToolCodeAlreadyExistsRepository } from '../../../../data/protocols/db/tool-code-already-exists-repository'
 
 export class ToolMongoRepository implements AddToolRepository, ToolCodeAlreadyExistsRepository {
   async add (toolData: AddToolModel): Promise<ToolModel> {
