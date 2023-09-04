@@ -1,3 +1,4 @@
+import type { HttpRequest } from './http'
 export interface Validation {
-  validate (input: any): Error
+  validate ({ body }: HttpRequest): Error | Promise<Error>
 }

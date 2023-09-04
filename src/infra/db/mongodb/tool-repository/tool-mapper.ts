@@ -9,6 +9,6 @@ export const map = async (toolCollection: any, result: any): Promise<ToolModel> 
     toolWithoutId,
     { id: _id.toHexString() }
   ) as ToolModel
-
+  
   return tool
 }

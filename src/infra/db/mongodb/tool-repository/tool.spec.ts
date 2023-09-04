@@ -1,5 +1,19 @@
 import { MongoHelper } from '../helpers/mongo-helper'
 import { ToolMongoRepository } from './tool'
+import type { AddToolModel } from '../../../../domain/usecases/add-tool'
+
+const makeSut = (): ToolMongoRepository => {
+  const sut = new ToolMongoRepository()
+  return sut
+}
+
+const makeFakeData = (): AddToolModel => ({
+  name: 'any_name',
+  code: 'any_code',
+  description: 'any_description'
+})
+
+
 
 describe('Tool Mongo Repository', () => {
   beforeAll(async () => {
@@ -35,5 +49,26 @@ describe('Tool Mongo Repository', () => {
     expect(tool.name).toBe('any_name')
     expect(tool.code).toBe('any_code')
     expect(tool.description).toBe('any_description')
+  })
+
+  test('Should get an tool by code on success', async () => {
+    const sut = makeSut()
+    await sut.add(makeFakeData())
+    const getTool = await sut.getToolByCode('any_code')
+    expect(getTool).toBeTruthy()
+  })
+
+  test('Should return true if tool code already exists', async () => {
+    const sut = makeSut()
+    await sut.add(makeFakeData())
+    const toolCodeAlreadyExists = await sut.toolCodeAlreadyExists('any_code')
+    expect(toolCodeAlreadyExists).toBeTruthy()
+  })
+
+  test('Should return false if tool code not exists', async () => {
+    const sut = makeSut()
+    await sut.add(makeFakeData())
+    const toolCodeAlreadyExists = await sut.toolCodeAlreadyExists('any_false_code')
+    expect(toolCodeAlreadyExists).toBeFalsy()
   })
 })

@@ -1,9 +1,9 @@
 import { object } from 'yup'
 import { ValidationParamError } from '../../errors/validation-param-error'
-import type { FieldValidator } from '../../protocols/field-validator'
 import type { HttpRequest } from '../../protocols/http'
+import type { Validation } from '../../protocols/validation'
 
-export class YupFieldValidation implements FieldValidator {
+export class YupFieldValidation implements Validation {
   private readonly requiredFields: any
 
   constructor (requiredFields: any) {
