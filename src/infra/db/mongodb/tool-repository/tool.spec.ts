@@ -1,7 +1,7 @@
 import { MongoHelper } from '../helpers/mongo-helper'
 import { ToolMongoRepository } from './tool'
 
-describe('Account Mongo Repository', () => {
+describe('Tool Mongo Repository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
   })
@@ -11,8 +11,8 @@ describe('Account Mongo Repository', () => {
   })
 
   beforeEach(async () => {
-    const accountCollection = await MongoHelper.getCollection('accounts')
-    await accountCollection.deleteMany({})
+    const toolCollection = await MongoHelper.getCollection('tools')
+    await toolCollection.deleteMany({})
   })
 
   const makeSut = (): ToolMongoRepository => {
@@ -24,16 +24,16 @@ describe('Account Mongo Repository', () => {
   test('Should return an tool on success', async () => {
     const sut = makeSut()
 
-    const account = await sut.add({
+    const tool = await sut.add({
       name: 'any_name',
       code: 'any_code',
       description: 'any_description'
     })
 
-    expect(account).toBeTruthy()
-    expect(account.id).toBeTruthy()
-    expect(account.name).toBe('any_name')
-    expect(account.code).toBe('any_code')
-    expect(account.description).toBe('any_description')
+    expect(tool).toBeTruthy()
+    expect(tool.id).toBeTruthy()
+    expect(tool.name).toBe('any_name')
+    expect(tool.code).toBe('any_code')
+    expect(tool.description).toBe('any_description')
   })
 })
