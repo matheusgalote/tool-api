@@ -13,7 +13,9 @@ const makeFakeData = (): AddToolModel => ({
   description: 'any_description'
 })
 
-describe('Account Mongo Repository', () => {
+
+
+describe('Tool Mongo Repository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
   })
@@ -23,9 +25,15 @@ describe('Account Mongo Repository', () => {
   })
 
   beforeEach(async () => {
-    const accountCollection = await MongoHelper.getCollection('tools')
-    await accountCollection.deleteMany({})
+    const toolCollection = await MongoHelper.getCollection('tools')
+    await toolCollection.deleteMany({})
   })
+
+  const makeSut = (): ToolMongoRepository => {
+    const sut = new ToolMongoRepository()
+
+    return sut
+  }
 
   test('Should return an tool on success', async () => {
     const sut = makeSut()
