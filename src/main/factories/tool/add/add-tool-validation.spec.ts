@@ -6,7 +6,7 @@ import ToolCodeDuplicateValidation from '../../../../presentation/helpers/valida
 import type { Validation } from '../../../../presentation/protocols/validation'
 import type { ToolCodeAlreadyExistsRepository } from '../../../../data/protocols/db/tool-code-already-exists-repository'
 
-jest.mock('../../../presentation/helpers/validators/validation-composite')
+jest.mock('../../../../presentation/helpers/validators/validation-composite')
 
 const makeToolCodeAlreadyExistsRepository = (): ToolCodeAlreadyExistsRepository => {
   class ToolCodeAlreadyExistsRepositoryStub implements ToolCodeAlreadyExistsRepository {
