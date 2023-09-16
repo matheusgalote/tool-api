@@ -2,18 +2,11 @@ import { MongoHelper } from '../helpers/mongo-helper'
 import { ToolMongoRepository } from './tool'
 import type { AddToolModel } from '../../../../domain/usecases/add-tool'
 
-const makeSut = (): ToolMongoRepository => {
-  const sut = new ToolMongoRepository()
-  return sut
-}
-
 const makeFakeData = (): AddToolModel => ({
   name: 'any_name',
   code: 'any_code',
   description: 'any_description'
 })
-
-
 
 describe('Tool Mongo Repository', () => {
   beforeAll(async () => {
@@ -31,7 +24,6 @@ describe('Tool Mongo Repository', () => {
 
   const makeSut = (): ToolMongoRepository => {
     const sut = new ToolMongoRepository()
-
     return sut
   }
 

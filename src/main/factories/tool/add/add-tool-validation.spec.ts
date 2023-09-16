@@ -1,10 +1,10 @@
-import { YupFieldValidation } from '../../../presentation/helpers/validators/yup-field-validation'
-import { ValidationComposite } from '../../../presentation/helpers/validators/validation-composite'
+import { YupFieldValidation } from '../../../../presentation/helpers/validators/yup-field-validation'
+import { ValidationComposite } from '../../../../presentation/helpers/validators/validation-composite'
 import { makeAddToolValidation } from './add-tool-validation'
-import { addToolValidation } from '../../../presentation/helpers/validation-fields/add-tool'
-import type { Validation } from '../../../presentation/protocols/validation'
-import { type ToolCodeAlreadyExistsRepository } from '../../../data/protocols/db/tool-code-already-exists-repository'
-import ToolCodeDuplicateValidation from '../../../presentation/helpers/validators/tool-code-duplicate-validation'
+import { addToolValidation } from '../../../../presentation/helpers/validation-fields/tool/add-tool'
+import ToolCodeDuplicateValidation from '../../../../presentation/helpers/validators/tool-code-duplicate-validation'
+import type { Validation } from '../../../../presentation/protocols/validation'
+import type { ToolCodeAlreadyExistsRepository } from '../../../../data/protocols/db/tool-code-already-exists-repository'
 
 jest.mock('../../../presentation/helpers/validators/validation-composite')
 

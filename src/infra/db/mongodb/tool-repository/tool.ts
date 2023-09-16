@@ -17,8 +17,11 @@ export class ToolMongoRepository implements AddToolRepository, ToolCodeAlreadyEx
   async getToolByCode (code: string): Promise<ToolModel> {
     const toolCollection = await MongoHelper.getCollection('tools')
     const result = await toolCollection.findOne({ code })
-    const tool = await getMap(result)
-    return tool
+    if (result) {
+      const tool = await getMap(result)
+      return tool
+    }
+    return null
   }
 
   async toolCodeAlreadyExists (code: string): Promise<boolean> {

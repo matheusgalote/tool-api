@@ -1,7 +1,7 @@
-import { YupFieldValidation } from './yup-field-validation'
-import { addToolValidation } from '../validation-fields/add-tool'
-import { ValidationParamError } from '../../errors/validation-param-error'
-import type { HttpRequest } from '../../protocols/http'
+import { YupFieldValidation } from '../../../../presentation/helpers/validators/yup-field-validation'
+import { addToolValidation } from '../../../../presentation/helpers/validation-fields/tool/add-tool'
+import { ValidationParamError } from '../../../../presentation/errors/validation-param-error'
+import type { HttpRequest } from '../../../../presentation/protocols/http'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
