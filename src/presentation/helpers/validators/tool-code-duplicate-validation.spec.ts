@@ -1,7 +1,7 @@
-import { ValidationParamError } from '../../errors/validation-param-error'
-import ToolCodeDuplicateValidation from './tool-code-duplicate-validation'
 import type { ToolCodeAlreadyExistsRepository } from '../../../data/protocols/db/tool-code-already-exists-repository'
 import type { HttpRequest } from '../../protocols/http'
+import { ValidationParamError } from '../../errors/validation-param-error'
+import { ToolCodeDuplicateValidation } from './tool-code-duplicate-validation'
 
 const makeToolCodeAlreadyExistsRepository = (): ToolCodeAlreadyExistsRepository => {
   class ToolCodeAlreadyExistsRepositoryStub implements ToolCodeAlreadyExistsRepository {

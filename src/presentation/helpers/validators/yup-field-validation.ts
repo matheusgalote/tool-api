@@ -1,14 +1,12 @@
-import { object } from 'yup'
-import { ValidationParamError } from '../../errors/validation-param-error'
 import type { HttpRequest } from '../../protocols/http'
 import type { Validation } from '../../protocols/validation'
+import { object } from 'yup'
+import { ValidationParamError } from '../../errors/validation-param-error'
 
 export class YupFieldValidation implements Validation {
-  private readonly requiredFields: any
-
-  constructor (requiredFields: any) {
-    this.requiredFields = requiredFields
-  }
+  constructor (
+    private readonly requiredFields: any
+  ) {}
 
   async validate (body: HttpRequest): Promise<Error> {
     try {

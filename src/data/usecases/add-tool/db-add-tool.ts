@@ -3,11 +3,9 @@ import type { AddTool, AddToolModel } from '../../../domain/usecases/add-tool'
 import type { AddToolRepository } from '../../protocols/db/add-tool-repository'
 
 export class DbAddTool implements AddTool {
-  private readonly addToolRepository: AddToolRepository
-
-  constructor (addToolRepository: AddToolRepository) {
-    this.addToolRepository = addToolRepository
-  }
+  constructor (
+    private readonly addToolRepository: AddToolRepository
+  ) {}
 
   async add (toolData: AddToolModel): Promise<ToolModel> {
     const tool = await this.addToolRepository.add(toolData)

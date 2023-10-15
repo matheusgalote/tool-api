@@ -1,7 +1,7 @@
-import { ValidationParamError } from '../../errors/validation-param-error'
-import { ValidationComposite } from './validation-composite'
 import type { Validation } from '../../protocols/validation'
 import type { HttpRequest } from '../../protocols/http'
+import { ValidationParamError } from '../../errors/validation-param-error'
+import { ValidationComposite } from './validation-composite'
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {

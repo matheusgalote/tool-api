@@ -1,17 +1,11 @@
+import type { AddTool, Controller, Validation, HttpRequest, HttpResponse } from './add-tool-protocols'
 import { badRequest, ok, serverError } from '../../helpers/http/http-helper'
-import type { AddTool } from '../../../domain/usecases/add-tool'
-import type { Controller } from '../../protocols/contoller'
-import type { Validation } from '../../protocols/validation'
-import type { HttpRequest, HttpResponse } from '../../protocols/http'
 
 export class AddToolController implements Controller {
-  private readonly addTool: AddTool
-  private readonly validation: Validation
-
-  constructor (addTool: AddTool, validation: Validation) {
-    this.addTool = addTool
-    this.validation = validation
-  }
+  constructor (
+    private readonly addTool: AddTool,
+    private readonly validation: Validation
+  ) {}
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {

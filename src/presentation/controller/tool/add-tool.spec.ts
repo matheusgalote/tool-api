@@ -1,11 +1,9 @@
+import type { HttpRequest, AddToolModel, AddTool, ToolModel } from './add-tool-protocols'
 import { AddToolController } from './add-tool'
 import { ok, serverError } from '../../helpers/http/http-helper'
 import { ServerError } from '../../errors/server-error'
 import { YupFieldValidation } from '../../helpers/validators/yup-field-validation'
 import { addToolValidation } from '../../helpers/validation-fields/tool/add-tool'
-import type { HttpRequest } from '../../protocols/http'
-import type { AddToolModel, AddTool } from '../../../domain/usecases/add-tool'
-import type { ToolModel } from '../../../domain/models/tool'
 
 const makeFakeHttpRequest = (): HttpRequest => {
   return {
